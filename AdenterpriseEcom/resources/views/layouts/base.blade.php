@@ -32,7 +32,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick/slick-theme.css') }}">
     <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo4.css') }}">
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <style>
         .h-logo {
             max-width: 185px !important;
@@ -157,20 +159,20 @@
                                     </li>
                                     <li class="onhover-dropdown wislist-dropdown">
                                         <div class="cart-media">
-                                            <a href="wishlist/list.html">
+                                            <a href="{{route('wishlist.list')}}">
                                                 <i data-feather="heart"></i>
                                                 <span id="wishlist-count" class="label label-theme rounded-pill">
-                                                    0
+                                                    {{Cart::instance('wishlist')->content()->count()}}
                                                 </span>
                                             </a>
                                         </div>
                                     </li>
                                     <li class="onhover-dropdown wislist-dropdown">
                                         <div class="cart-media">
-                                            <a href="cart/list.html">
+                                            <a href="{{route('cart.index')}}">
                                                 <i data-feather="shopping-cart"></i>
                                                 <span id="cart-count" class="label label-theme rounded-pill">
-                                                    0
+                                                    {{Cart::instance('cart')->content()->count()}}
                                                 </span>
                                             </a>
                                         </div>

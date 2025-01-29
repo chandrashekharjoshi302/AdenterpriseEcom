@@ -86,7 +86,7 @@
                             <td>
                                 <div class="qty-box">
                                     <div class="input-group">
-                                        <input type="number" name="quantity" data-rowid="{{$item->rowId}}" class="form-control input-number" value="{{$item->qty}}">
+                                        <input type="number" name="quantity" data-rowid="{{$item->rowId}}" onchange="updateQuantity(this)" class="form-control input-number" value="{{$item->qty}}">
                                     </div>
                                 </div>
                             </td>
@@ -107,8 +107,7 @@
                 <div class="row">
                     <div class="col-sm-7 col-5 order-1">
                         <div class="left-side-button text-end d-flex d-block justify-content-end">
-                            <a href="javascript:void(0)" class="text-decoration-underline theme-color d-block text-capitalize">clear
-                                all items</a>
+                            <a href="javascript:void(0)" onclick="clearCart()" class="text-decoration-underline theme-color d-block text-capitalize">clear all items</a>
                         </div>
                     </div>
                     <div class="col-sm-5 col-7">
@@ -173,4 +172,59 @@
         @endif
     </div>
 </section>
+
+{{-- <form id="updateCartQty" action="{{route('cart.update')}}" method="POST">
+    @csrf
+    @method('put')
+    <input type="hidden" id="rowId" name="rowId" />
+    <input type="hidden" id="quantity" name="quantity" />
+</form> --}}
+
+<form id="deleteFromCart" action="{{route('cart.remove')}}" method="post">
+    @csrf
+    @method('delete')
+    <input type="hidden" id="rowId_D" name="rowId" />
+</form>
+
+<form id="updateCartQty" action="{{route('cart.update')}}" method="POST">
+    @csrf
+    @method('put')
+    <input type="hidden" id="rowId" name="rowId" />
+    <input type="hidden" id="quantity" name="quantity" />
+</form>
+
+<form id="clearCart" action="{{route('cart.clear')}}" method="post">
+    @csrf
+    @method('delete') 
+</form>
+@push('scripts')
+    <script>
+        function updateQuantity(qty)
+        {
+            $('#rowId').val($(qty).data('rowid'));
+            $('#quantity').val($(qty).val());
+            $('#updateCartQty').submit();
+        }      
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function removeItemFromCart(rowId)
+        {
+            $('#rowId_D').val(rowId);
+            $('#deleteFromCart').submit();
+        }       
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function clearCart()
+        {
+            $('#clearCart').submit();
+        }
+    </script>
+@endpush
+
 @endsection
