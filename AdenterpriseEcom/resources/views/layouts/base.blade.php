@@ -207,6 +207,9 @@
                                                         <li>
                                                             <a href="{{route('register')}}" class="d-block">Register</a>
                                                         </li>
+                                                        <li>
+                                                            <a href="{{route('google.login')}}" class="d-block">Google Login</a>
+                                                        </li>
                                                     @endauth                                                    
                                                 @endif
                                             </ul>
